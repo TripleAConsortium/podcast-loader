@@ -6,4 +6,4 @@ if [ "$#" -lt 2 ]; then
 fi
 
 source .venv/bin/activate
-python3 clicker.py $1 $2
+python3 script.py $1 $2
