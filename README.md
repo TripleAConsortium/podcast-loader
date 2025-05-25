@@ -1,18 +1,35 @@
 # podcast-loader
 
-## Тебования
-Перед работой необходимо установить [venv](https://docs.python.org/3/library/venv.html)
+Скрипт для загрузки подкастов на mave.digital
 
-## Инструкция
+## Нативный скрипт без внешних зависимостей (native_execution.py)
 
-- Для создания venv и установки зависимостей запустить **install.sh**
-- Перед запуском создать файл **.env** и определить в нем:
-    * PASSWORD 
-    * LOGIN(email)
-    * URL
-- На сайте заранее должен быть в ручную создан подкаст
-- Загрузка запускается c помощью **start.sh**: 
+#### Требования
+- Python 3.6 или выше (использует только стандартные библиотеки)
+- ID подкаста на mave.digital
+
+#### Инструкция
+
+Скрипт использует только стандартные библиотеки Python и не требует установки дополнительных зависимостей.
 
 ```bash
-start.sh relaese_name /home/user/audio.mp3
+python3 native_execution.py --email your@email.com --password yourpassword --podcast-id your-podcast-id --audio-file "/path/to/audio.mp3" --title "Episode Title" --description "Episode description"
 ```
+
+#### Параметры
+
+- `--email` - Email для входа на mave.digital
+- `--password` - Пароль для входа на mave.digital
+- `--podcast-id` - ID подкаста на mave.digital
+- `--audio-file` - Путь к аудиофайлу для загрузки
+- `--title` - Название эпизода
+- `--description` - Описание эпизода
+- `--explicit` - Пометить эпизод как содержащий контент для взрослых (опционально)
+- `--private` - Пометить эпизод как приватный (опционально)
+
+#### Процесс работы
+
+1. Авторизация на mave.digital
+2. Загрузка аудиофайла
+3. Ожидание обработки аудио (с отображением статуса)
+4. Публикация эпизода с указанными метаданными
