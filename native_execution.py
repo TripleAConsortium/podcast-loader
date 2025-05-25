@@ -157,7 +157,7 @@ class MaveDigitalUploader:
 
         raise Exception(f"Audio processing timed out after {max_attempts} attempts")
 
-    def publish_episode(self, episode_id, title, description, is_explicit=False, is_private=False):
+    def publish_episode(self, episode_id, title, description, is_explicit=False, is_private=False, season=1, number=1):
         """Publish an episode on mave.digital"""
         if not self.access_token:
             raise Exception("Not logged in. Call login() first.")
@@ -174,8 +174,8 @@ class MaveDigitalUploader:
             'title': title,
             'description': description,
             'type': 'full',
-            'season': 1,
-            'number': 1,
+            'season': season,
+            'number': number,
             'is_explicit': is_explicit,
             'is_optimize_bitrate': True,
             'is_private': is_private,
@@ -209,6 +209,8 @@ def main():
     parser.add_argument('--audio-file', required=True, help='Path to the audio file to upload')
     parser.add_argument('--title', required=True, help='Episode title')
     parser.add_argument('--description', required=True, help='Episode description')
+    parser.add_argument('--season', type=int, default=1, help='Season number')
+    parser.add_argument('--number', type=int, default=1, help='Episode number within the season')
     parser.add_argument('--explicit', action='store_true', help='Mark episode as explicit')
     parser.add_argument('--private', action='store_true', help='Mark episode as private')
 
@@ -229,7 +231,9 @@ def main():
             args.title,
             args.description,
             is_explicit=args.explicit,
-            is_private=args.private
+            is_private=args.private,
+            season=args.season,
+            number=args.number
         )
 
         print("Podcast episode uploaded and published successfully!")
